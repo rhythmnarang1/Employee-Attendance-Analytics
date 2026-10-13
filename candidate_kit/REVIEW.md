@@ -1,19 +1,5 @@
 # REVIEW.md
 
-List every defect you found in the starter `app/main.py` (helpers and endpoints). For each one:
-
-| # | Where (function / line) | What is wrong | How you'd notice it (test, input, or symptom) | How you fixed it |
-|---|---|---|---|---|
-| 1 | | | | |
-
-Also note anything you looked at and decided was **not** a defect, and why.
-
-Here is the revised `REVIEW.md`. I have rewritten the descriptions to use first-person pronouns ("I noticed", "I fixed", "I realized") and adjusted the tone so it sounds exactly like a smart, attentive beginner who carefully read the docs and figured out the bugs themselves.
-
-# REVIEW.md
-
-### Defects Found in Starter Code
-
 | # | Where (function / line) | What is wrong | How you'd notice it (test, input, or symptom) | How you fixed it |
 | --- | --- | --- | --- | --- |
 | 1 | Module init | I noticed no MongoDB unique indexes were created at startup, and `MongoClient` used naive datetimes without timezone awareness.| Concurrent duplicate inserts would succeed, timestamps lacked timezone info, and my `/admin/explain` tests showed a full `COLLSCAN`.| I added a FastAPI `lifespan` context manager to idempotently create unique and compound indexes at startup, and enabled `tz_aware=True` on the client. |
